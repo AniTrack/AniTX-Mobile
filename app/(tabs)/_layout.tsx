@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Easing, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
@@ -10,6 +10,11 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import CubeSVG from '@/assets/icons/cube-solid.svg';
 import HomeSVG from '@/assets/icons/house-solid.svg';
 import BetaSVG from '@/assets/icons/seedling-solid.svg';
+import Animated, {
+    useAnimatedStyle,
+    useSharedValue,
+    withSpring,
+} from 'react-native-reanimated';
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
@@ -39,9 +44,36 @@ export default function TabLayout() {
                 name="topic"
                 options={{
                     title: '',
-                    tabBarIcon: ({ color }) => (
-                        <CubeSVG width={30} height={30} fill={color} />
-                    ),
+                    tabBarIcon: ({ color, focused }) => {
+                        const scale = useSharedValue(focused ? 1.2 : 1);
+
+                        scale.value = withSpring(focused ? 1.2 : 1, {
+                            damping: 10,
+                            stiffness: 100,
+                        });
+
+                        const animatedStyle = useAnimatedStyle(() => ({
+                            transform: [{ scale: scale.value }],
+                        }));
+
+                        return (
+                            <Animated.View
+                                style={[
+                                    {
+                                        width: 30,
+                                        height: 30,
+                                    },
+                                    animatedStyle,
+                                ]}
+                            >
+                                <CubeSVG
+                                    width={'100%'}
+                                    height={'100%'}
+                                    fill={color}
+                                />
+                            </Animated.View>
+                        );
+                    },
                 }}
             />
             <Tabs.Screen

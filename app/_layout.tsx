@@ -17,8 +17,13 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
+
     const [loaded] = useFonts({
         SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+        'Fredoka-400': require('../assets/fonts/Fredoka-Regular.ttf'),
+        'Fredoka-500': require('../assets/fonts/Fredoka-Medium.ttf'),
+        'Fredoka-600': require('../assets/fonts/Fredoka-SemiBold.ttf'),
+        'Fredoka-700': require('../assets/fonts/Fredoka-Bold.ttf'),
     });
 
     useEffect(() => {
@@ -40,6 +45,8 @@ export default function RootLayout() {
                     name="(tabs)"
                     options={{
                         headerShown: false,
+                        gestureEnabled: true,
+                        gestureDirection: 'horizontal',
                     }}
                 />
                 <Stack.Screen name="+not-found" />

@@ -1,7 +1,7 @@
 import { StyleSheet, Image, Platform, Button, Vibration } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
+import { ThemedTextEx } from '@/components/ThemedTextEx';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useEffect, useState } from 'react';
@@ -27,7 +27,7 @@ export default function TabTwoScreen() {
             />
 
             <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title">Beta Portal</ThemedText>
+                <ThemedTextEx>Beta Portal</ThemedTextEx>
             </ThemedView>
         </ParallaxScrollView>
     );
